@@ -1,14 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Home = () => {
-  return (
-    <div>
-      <p>
-        
-      </p>
-      {/* <UserButton afterSignOutUrl='/'></UserButton> */}
-    </div>
-  )
-}
+    return (
+        <div>
+            <p></p>
+            {/* <UserButton afterSignOutUrl='/'></UserButton> */}
+        </div>
+    );
+};
 
-export default Home
+export default Home;
