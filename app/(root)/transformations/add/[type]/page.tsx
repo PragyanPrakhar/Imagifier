@@ -110,10 +110,6 @@
 // };
 
 // export default AddTransformationTypePage;
-
-
-
-import React from "react";
 import Header from "@/components/shared/Header";
 import TransformationForm from "@/components/shared/TransformationForm";
 import { transformationTypes } from "@/constants";
@@ -121,54 +117,33 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-type TransformationTypeKey = "type1" | "type2" | "type3"; // Adjust based on your actual transformation types
-
-type SearchParamProps = {
-  params: {
-    id: string;
-    type: TransformationTypeKey;
-  };
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
-};
-
 const AddTransformationTypePage = async ({
-  params: { type },
-}: {
-  params: { id: string; type: TransformationTypeKey };
-}) => {
-  // Authenticate user
-  const { userId } = await auth();
-  if (!userId) {
-    redirect("/sign-in");
-  }
+    params: { type }
+}: SearchParamProps) => {
+    const { userId } =await  auth();
+    const transformation = transformationTypes[type];
 
-  // Validate transformation type
-  const transformation = transformationTypes[type];
-  if (!transformation) {
-    throw new Error(`Invalid transformation type: ${type}`);
-  }
+    if (!userId) redirect("/sign-in");
 
-  // Fetch user details
-  const user = await getUserById(userId);
+    const user = await getUserById(userId);
 
-  return (
-    <div>
-      <Header
-        title={transformation.title}
-        subtitle={transformation.subTitle}
-      />
-      <section className="mt-10">
-        <TransformationForm
-          action="Add"
-          userId={user._id}
-          type={type}
-          creditBalance={user.creditBalance}
-        />
-      </section>
-    </div>
-  );
+    return (
+        <>
+            <Header
+                title={transformation.title}
+                subtitle={transformation.subTitle}
+            />
+
+            <section className="mt-10">
+                <TransformationForm
+                    action="Add"
+                    userId={user._id}
+                    type={transformation.type as TransformationTypeKey}
+                    creditBalance={user.creditBalance}
+                />
+            </section>
+        </>
+    );
 };
 
 export default AddTransformationTypePage;
