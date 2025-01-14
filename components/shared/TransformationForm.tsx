@@ -75,7 +75,15 @@ const TransformationForm = ({
         value: string,
         onChangeField: (value: string) => void
     ) => {
-        onChangeField(value);
+        const imageSize = aspectRatioOptions[value as AspectRatioKey];
+        setImage((prevState: any) => ({
+            ...prevState,
+            aspectRatio: imageSize.aspectRatio,
+            width: imageSize.width,
+            height: imageSize.height,
+        }));
+        setNewTransformation(transformationType.config);
+        return onChangeField(value);
     };
     const onInputChangeHandler = (
         fieldName: string,
@@ -84,7 +92,7 @@ const TransformationForm = ({
         onChangeField: (value: string) => void
     ) => {};
 
-    const onTransformHandler =()=> {};
+    const onTransformHandler = () => {};
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -188,10 +196,12 @@ const TransformationForm = ({
                     <Button
                         type="submit"
                         className="submit-button capitalize"
-                        disabled={isTransforming || newTransformation===null}
+                        disabled={isTransforming || newTransformation === null}
                         onClick={onTransformHandler}
                     >
-                        {isTransforming ? "Transforming..." : "Apply Transformation"}
+                        {isTransforming
+                            ? "Transforming..."
+                            : "Apply Transformation"}
                     </Button>
                 </div>
                 <Button
