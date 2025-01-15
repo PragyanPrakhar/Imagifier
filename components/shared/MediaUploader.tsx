@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { useToast } from "@/hooks/use-toast";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
@@ -19,20 +19,18 @@ const MediaUploader = ({
     image,
     onValueChange,
     type,
-}: {
-    MediaUploaderProps;
-}) => {
+}: 
+    MediaUploaderProps
+) => {
     const { toast } = useToast();
     const onUploadSuccessHandler = (result: any) => {
-        setImage((prevState:any)=>(
-            {
-                ...prevState,
-                publicId:result?.info?.public_id,
-                width:result?.info?.width,
-                height:result?.info?.height,
-                secureUrl:result?.info?.secure_url,
-            }
-        ))
+        setImage((prevState: any) => ({
+            ...prevState,
+            publicId: result?.info?.public_id,
+            width: result?.info?.width,
+            height: result?.info?.height,
+            secureUrl: result?.info?.secure_url,
+        }));
 
         onValueChange(result?.info?.public_id);
 

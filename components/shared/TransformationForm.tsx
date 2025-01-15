@@ -53,7 +53,7 @@ const TransformationForm = ({
     const [newTransformation, setNewTransformation] =
         useState<Transformations | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isTransforming, setisTransforming] = useState(false);
+    const [isTransforming, setIsTransforming] = useState(false);
     const [transformationConfig, setTransformationConfig] = useState(config);
     // It lets u update the state without blocking the UI.
     const [isPending, startTransition] = useTransition();
@@ -111,7 +111,7 @@ const TransformationForm = ({
 
     //TODO : We can update credit fee according to our choice
     const onTransformHandler = async () => {
-        setisTransforming(true);
+        setIsTransforming(true);
         setTransformationConfig(
             deepMergeObjects(newTransformation, transformationConfig)
         );
@@ -240,7 +240,7 @@ const TransformationForm = ({
                     type={type}
                     title={form.getValues().title}
                     isTransforming={isTransforming}
-                    setIsTransforming={setisTransforming}
+                    setIsTransforming={setIsTransforming}
                     transformationConfig={transformationConfig}
                     />
                 </div>

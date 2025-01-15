@@ -10,6 +10,7 @@ const TransformedImage = ({
     title,
     transformationConfig,
     isTransforming,
+    setIsTransforming,
     hasDownload = false,
 }: TransformedImageProps) => {
     const downloadHandler = () => {};
@@ -40,11 +41,14 @@ const TransformedImage = ({
                         placeholder={dataUrl as PlaceholderValue}
                         className="media-uploader_cldImage"
                         onLoad={() => {
-                            setIsTransforming && setIsTransforming(false);
+                            if (isTransforming && setIsTransforming) {
+                                setIsTransforming(false);
+                            }
                         }}
+                        
                         onError={() => {
                             debounce(() => {
-                                setIsTransforming && setIsTransforming(false);
+                                if(isTransforming && setIsTransforming) setIsTransforming(false);
                             }, 8000);
                         }}
                         {...transformationConfig}
